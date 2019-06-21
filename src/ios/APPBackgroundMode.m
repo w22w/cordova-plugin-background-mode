@@ -145,20 +145,6 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
  */
 - (void) configureAudioPlayer
 {
-    //from here https://stackoverflow.com/questions/11444297/ios-avaudioplayer-makes-other-apps-background-music-stopped
-    // prevents our app from stopping other audio,
-    // e.g. music, podcats, etc. that may be playing when launched
-    // our audio will be played at a higher volume
-    // and the background audio will "duck" until done
-    /* [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryMultiRoute 
-                                     withOptions:AVAudioSessionCategoryOptionDuckOthers
-                                           error:nil]; */
-
-//another solution
-    /* NSError *sessionError = nil;
-   [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:&sessionError];
-   [[AVAudioSession sharedInstance] setActive:YES error:&sessionError]; */
-
     NSString* path = [[NSBundle mainBundle]
                       pathForResource:@"appbeep" ofType:@"wav"];
 
@@ -171,8 +157,6 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
     audioPlayer.volume        = 0;
     audioPlayer.numberOfLoops = -1;
 
-    //3rd one solution
-   [[AVAudioSession sharedInstance]setCategory:AVAudioSessionCategoryAmbient error:nil];
 };
 
 /**
@@ -188,8 +172,25 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
 
     // Play music even in background and dont stop playing music
     // even another app starts playing sound
-    [session setCategory:AVAudioSessionCategoryPlayback
-                   error:NULL];
+    /* [session setCategory:AVAudioSessionCategoryPlayback
+                   error:NULL]; */
+
+    //from here https://stackoverflow.com/questions/11444297/ios-avaudioplayer-makes-other-apps-background-music-stopped
+    // prevents our app from stopping other audio,
+    // e.g. music, podcats, etc. that may be playing when launched
+    // our audio will be played at a higher volume
+    // and the background audio will "duck" until done
+    /* [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryMultiRoute 
+                                     withOptions:AVAudioSessionCategoryOptionDuckOthers
+                                           error:nil]; */
+
+   //another solution
+    /* NSError *sessionError = nil;
+   [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:&sessionError];
+   [[AVAudioSession sharedInstance] setActive:YES error:&sessionError]; */
+
+   //3rd one solution
+    [session setCategory:AVAudioSessionCategoryAmbient error:nil];
 
     // Active the audio session
     [session setActive:YES error:NULL];
