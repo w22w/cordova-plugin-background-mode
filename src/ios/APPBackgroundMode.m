@@ -145,6 +145,15 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
  */
 - (void) configureAudioPlayer
 {
+    //from here https://stackoverflow.com/questions/11444297/ios-avaudioplayer-makes-other-apps-background-music-stopped
+    // prevents our app from stopping other audio,
+    // e.g. music, podcats, etc. that may be playing when launched
+    // our audio will be played at a higher volume
+    // and the background audio will "duck" until done
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryMultiRoute 
+                                     withOptions:AVAudioSessionCategoryOptionDuckOthers
+                                           error:nil];
+
     NSString* path = [[NSBundle mainBundle]
                       pathForResource:@"appbeep" ofType:@"wav"];
 
