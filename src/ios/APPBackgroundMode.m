@@ -159,9 +159,6 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:&sessionError];
    [[AVAudioSession sharedInstance] setActive:YES error:&sessionError]; */
 
-//3rd one solution
-   [[AVAudioSession sharedInstance]setCategory:AVAudioSessionCategoryAmbient error:nil];
-
     NSString* path = [[NSBundle mainBundle]
                       pathForResource:@"appbeep" ofType:@"wav"];
 
@@ -173,6 +170,9 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
 
     audioPlayer.volume        = 0;
     audioPlayer.numberOfLoops = -1;
+
+    //3rd one solution
+   [[AVAudioSession sharedInstance]setCategory:AVAudioSessionCategoryAmbient error:nil];
 };
 
 /**
