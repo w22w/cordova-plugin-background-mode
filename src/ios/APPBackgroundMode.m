@@ -150,9 +150,17 @@ NSString* const kAPPBackgroundEventDeactivate = @"deactivate";
     // e.g. music, podcats, etc. that may be playing when launched
     // our audio will be played at a higher volume
     // and the background audio will "duck" until done
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryMultiRoute 
+    /* [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryMultiRoute 
                                      withOptions:AVAudioSessionCategoryOptionDuckOthers
-                                           error:nil];
+                                           error:nil]; */
+
+//another solution
+    /* NSError *sessionError = nil;
+   [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:&sessionError];
+   [[AVAudioSession sharedInstance] setActive:YES error:&sessionError]; */
+
+//3rd one solution
+   [[AVAudioSession sharedInstance]setCategory:AVAudioSessionCategoryAmbient error:nil];
 
     NSString* path = [[NSBundle mainBundle]
                       pathForResource:@"appbeep" ofType:@"wav"];
